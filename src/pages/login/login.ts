@@ -52,7 +52,7 @@ export class LoginPage {
 						let alert = this.alertCtrl.create({
 							message: error.message,
 							buttons: [{
-								text: "Ok",
+								text: "Угу",
 								role: 'cancel'
 							}]
 						});
