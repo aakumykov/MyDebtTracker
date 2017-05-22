@@ -13,14 +13,14 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-// export const firebaseConfig = {
-//   apiKey: "AIzaSyC2tAxvLf7beHWC_xQc4HrQqX-r3-Taqzc",
-//   authDomain: "mydebttracker-bf83f.firebaseapp.com",
-//   databaseURL: "https://mydebttracker-bf83f.firebaseio.com",
-//   projectId: "mydebttracker-bf83f",
-//   storageBucket: "mydebttracker-bf83f.appspot.com",
-//   messagingSenderId: "665998928060"
-// };
+export const firebaseConfig = {
+  apiKey: "AIzaSyC2tAxvLf7beHWC_xQc4HrQqX-r3-Taqzc",
+  authDomain: "mydebttracker-bf83f.firebaseapp.com",
+  databaseURL: "https://mydebttracker-bf83f.firebaseio.com",
+  projectId: "mydebttracker-bf83f",
+  storageBucket: "mydebttracker-bf83f.appspot.com",
+  messagingSenderId: "665998928060"
+};
 
 @NgModule({
   declarations: [
@@ -29,7 +29,10 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
