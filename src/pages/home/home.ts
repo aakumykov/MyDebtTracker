@@ -17,6 +17,7 @@ export class HomePage {
 		public billProvider: BillProvider,
 	) {
 		this.billList = this.billProvider.getBillList();
+		console.info('HomePage.constructor(), this.billList: '+this.billList);
 	}
 
 	createBill(): void { this.navCtrl.push('CreateBillPage'); }
