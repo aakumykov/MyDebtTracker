@@ -64,5 +64,24 @@ export class BillProvider {
 		return this.billList.update(billId, {paid: true});
 	}
 
-	
+	uploadBillPhoto(billId: string, imageURL: string): any {
+		console.info('BillProvider.uploadBillPhoto()');
+
+		const storageRef = firebase.storage().ref(this.userId);
+		console.info('BillProvider.uploadBillPhoto(), storageRef: '+storageRef);
+		
+		return storageRef.child(billId).child('billPicture')
+			.putString(imageURL, 'base64', {contentType: 'image/png'}).then(
+				pictureSnapshot => {
+					console.info('BillProvider.uploadBillPhoto(), pictureSnapshot:');
+					console.info(pictureSnapshot);
+					this.billList.update(billId, { picture: pictureSnapshot.downloadURL });
+				},
+				error => {
+					console.info('BillProvider.uploadBillPhoto(), ERROR: '+error.message);
+				}
+			);
+	}
+
+
 }

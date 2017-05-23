@@ -26,6 +26,7 @@ export class CreateBillPage {
 
 	createBill():void {
 		if (!this.newBillForm.valid){
+			console.log('createBill(), form invalid:');
 			console.log(this.newBillForm.value);
 		} else {
 			this.billProvider.createBill(
