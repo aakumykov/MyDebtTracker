@@ -1,14 +1,43 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      Ionic Blank
+      Мои займы
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="createBill()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <ion-list-header>
+      Неоплаченные
+    </ion-list-header>
+    <ion-item *ngFor="let bill of billList | async" 
+      (click)="moreBillOptions(bill.$key)" 
+      [class.hide]="bill.paid == true">
+      <ion-icon name="timer" color="danger" item-left></ion-icon>
+      <h2>{{bill.name}}</h2>
+      <h3>Всего: <strong>${{bill.amount}}</strong></h3>
+      <p>Вернуть до: <strong>{{bill.dueDate}}</strong></p>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      Оплаченные
+    </ion-list-header>
+    <ion-item *ngFor="let bill of billList | async" 
+      (click)="goToPaidBill(bill.$key)"
+      [class.hide]="bill.paid == false">
+      <ion-icon name="checkmark" color="favorite" item-left></ion-icon>
+      <h2>{{bill.name}}</h2>
+      <h3>Всего: <strong>${{bill.amount}}</strong></h3>
+    </ion-item>
+  </ion-list>
+  
 </ion-content>
