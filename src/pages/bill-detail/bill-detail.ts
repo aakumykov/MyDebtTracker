@@ -20,6 +20,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 
 export class BillDetailPage {
 	public bill: Object;
+	public placeholderPicture: string = "assets/img/credit.png";
 
 	constructor(
 		public navCtrl: NavController, 

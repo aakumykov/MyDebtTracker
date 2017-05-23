@@ -12,9 +12,9 @@
 
 <ion-content padding>
   <img [src]="bill.image || placeholderPicture" (click)="uploadPicture(bill?.$key)" />
-  <span *ngIf="!bill.image">
+  <div *ngIf="!bill.image">
     Прикоснитесь, чтобы добавить картинку
-  </span>
+  </div>
 
   <ion-card>
     <ion-card-header>
