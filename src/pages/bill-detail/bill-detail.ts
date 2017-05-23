@@ -35,7 +35,11 @@ export class BillDetailPage {
 		private camera: Camera,
 	) {
 		this.billProvider.getBill(this.navParams.get("billId"))
-			.subscribe( billSnap => { this.bill = billSnap });
+			.subscribe( billSnap => { 
+				console.info('BillDetailPage.constructor(), bill:');
+				console.info(billSnap);
+				this.bill = billSnap 
+			});
 	}
 
 	showOptions(billId): void{
