@@ -17,12 +17,12 @@ export class BillProvider {
 		this.afAuth.authState.subscribe(
 			auth => {
 				if (auth){
-					console.log('BillProvider, auth.uid: '+auth.uid);
+					// console.log('BillProvider.constructor(), auth.uid: '+auth.uid);
 					
 					this.billList = this.afDatabase.list(`/userProfile/${auth.uid}/billList`);
 					
-					console.log('BillProvider, billList:');
-					console.log(this.billList);
+					// console.log('BillProvider.constructor(), this.billList:');
+					// console.log(this.billList);
 					
 					this.userId = auth.uid;
 				}
@@ -30,7 +30,8 @@ export class BillProvider {
 		);
 	}
 
-	getBillList(): FirebaseListObservable<any> { 
+	getBillList(): FirebaseListObservable<any> {
+		// console.log('BillProvider.getBillList(), this.billList: '+this.billList);
 		return this.billList; 
 	}
 

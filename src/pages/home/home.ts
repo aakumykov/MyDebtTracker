@@ -15,9 +15,16 @@ export class HomePage {
 		public actionCtrl: ActionSheetController, 
 		public platform: Platform,
 		public billProvider: BillProvider,
-	) {
+	) {}
+
+	ionViewDidLoad() {
+		// console.info('HomePage.ionViewDidLoad(), this.billList: '+this.billList);
+		console.info('HomePage.ionViewDidLoad()');
 		this.billList = this.billProvider.getBillList();
-		console.info('HomePage.constructor(), this.billList: '+this.billList);
+	}
+
+	ionViewDidEnter() {
+		console.info('HomePage.ionViewDidEnter()');
 	}
 
 	createBill(): void { this.navCtrl.push('CreateBillPage'); }
