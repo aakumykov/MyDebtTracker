@@ -7,6 +7,8 @@ import {
 	Platform,
 	AlertController 
 } from 'ionic-angular';
+import { Camera } from '@ionic-native/camera';
+
 import { BillProvider } from '../../providers/bill/bill';
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -29,10 +31,15 @@ export class BillDetailPage {
 		public platform: Platform,
 		public alertCtrl: AlertController, 
 		public billProvider: BillProvider,
-		public authProvider: AuthProvider
+		public authProvider: AuthProvider,
+		private camera: Camera,
 	) {
 		this.billProvider.getBill(this.navParams.get("billId"))
-			.subscribe( billSnap => { this.bill = billSnap });
+			.subscribe( billSnap => { 
+				console.info('BillDetailPage.constructor(), bill:');
+				console.info(billSnap);
+				this.bill = billSnap 
+			});
 	}
 
 	showOptions(billId): void{
@@ -68,5 +75,49 @@ export class BillDetailPage {
 	    action.present();
 	}
 
-	
+	uploadPicture(billId: string) {
+		console.info('BillDetailPage.uploadPicture(), billId: '+billId);
+
+		if (true == this.authProvider.getUser().isAnonymous) {
+			console.info('BillDetailPage.uploadPicture(), НУЖНА РЕГИСТРАЦИЯ');
+
+			const alert = this.alertCtrl.create({
+				message: "Чтобы продолжить, вам нужно зарегистрироваться",
+				buttons: [
+					{ text: "Нет" },
+					{
+						text: "Да",
+						handler: data => {
+							this.navCtrl.push('SignupPage');
+						}
+					}
+				]
+			});
+			alert.present();
+		} else {
+			console.info('BillDetailPage.uploadPicture(), ЗАРЕГИСТРИРОВАН, делаю фото');
+
+			this.camera.getPicture({
+				quality : 95,
+				destinationType : this.camera.DestinationType.DATA_URL,
+				sourceType : this.camera.PictureSourceType.CAMERA,
+				allowEdit : true,
+				encodingType: this.camera.EncodingType.PNG,
+				targetWidth: 500,
+				targetHeight: 500,
+				saveToPhotoAlbum: true
+			}).then(
+				imageData => {
+					// console.info('BillDetailPage.uploadPicture(), imageData: '+imageData);
+					this.billProvider.uploadBillPhoto(billId, imageData);
+				}, 
+				error => {
+					console.log("ERROR -> " + JSON.stringify(error));
+				}
+			);
+		}
+	}
+
+
+
 }
