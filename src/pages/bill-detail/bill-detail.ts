@@ -36,8 +36,8 @@ export class BillDetailPage {
 	) {
 		this.billProvider.getBill(this.navParams.get("billId"))
 			.subscribe( billSnap => { 
-				console.info('BillDetailPage.constructor(), bill:');
-				console.info(billSnap);
+				//console.info('BillDetailPage.constructor(), bill:');
+				//console.info(billSnap);
 				this.bill = billSnap 
 			});
 	}
