@@ -55,8 +55,8 @@ class CameraMock extends Camera {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BillProvider,
     AuthProvider,
-    //Camera,
-    { provide: Camera, useClass: CameraMock},
+    Camera,
+    //{ provide: Camera, useClass: CameraMock},
   ]
 })
 export class AppModule {}
