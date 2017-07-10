@@ -21,6 +21,10 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 
 export class BillDetailPage {
+	public file: any = null;
+	public uploadResult: string = 'НЕИЗВЕСТНО';
+
+	public billId: string = '';
 	public bill: Object;
 	public placeholderPicture: string = "assets/img/credit.png";
 
@@ -40,6 +44,8 @@ export class BillDetailPage {
 				//console.info(billSnap);
 				this.bill = billSnap 
 			});
+
+		this.billId = this.navParams.get("billId");
 	}
 
 	showOptions(billId): void{
@@ -75,8 +81,8 @@ export class BillDetailPage {
 	    action.present();
 	}
 
-	uploadPicture(billId: string) {
-		console.info('BillDetailPage.uploadPicture(), billId: '+billId);
+	uploadPicture() {
+		console.info('BillDetailPage.uploadPicture(), billId: '+this.billId);
 
 		if (true == this.authProvider.getUser().isAnonymous) {
 			console.info('BillDetailPage.uploadPicture(), НУЖНА РЕГИСТРАЦИЯ');
@@ -97,27 +103,39 @@ export class BillDetailPage {
 		} else {
 			console.info('BillDetailPage.uploadPicture(), ЗАРЕГИСТРИРОВАН, делаю фото');
 
-			this.camera.getPicture({
-				quality : 95,
-				destinationType : this.camera.DestinationType.DATA_URL,
-				sourceType : this.camera.PictureSourceType.PHOTOLIBRARY,
-				allowEdit : true,
-				encodingType: this.camera.EncodingType.PNG,
-				targetWidth: 500,
-				targetHeight: 500,
-				saveToPhotoAlbum: true
-			}).then(
-				imageData => {
-					// console.info('BillDetailPage.uploadPicture(), imageData: '+imageData);
-					this.billProvider.uploadBillPhoto(billId, imageData);
-				}, 
-				error => {
-					console.log("ERROR -> " + JSON.stringify(error));
-				}
-			);
+			this.billProvider.uploadBillPhoto(this.billId, this.file).then( () => {
+				this.uploadResult = 'УСПЕХ';
+				console.info('uploadPicture() SUCCESS');
+			}).catch( (error: any) => {
+				this.uploadResult = 'ОШИБКА, '+error.message;
+				console.error('uploadPicture() ERROR:');
+				console.error(error);
+			});
+
+			// this.camera.getPicture({
+			// 	quality : 95,
+			// 	destinationType : this.camera.DestinationType.DATA_URL,
+			// 	sourceType : this.camera.PictureSourceType.PHOTOLIBRARY,
+			// 	allowEdit : true,
+			// 	encodingType: this.camera.EncodingType.PNG,
+			// 	targetWidth: 500,
+			// 	targetHeight: 500,
+			// 	saveToPhotoAlbum: true
+			// }).then(
+			// 	imageData => {
+			// 		// console.info('BillDetailPage.uploadPicture(), imageData: '+imageData);
+			// 		this.billProvider.uploadBillPhoto(billId, imageData);
+			// 	}, 
+			// 	error => {
+			// 		console.log("ERROR -> " + JSON.stringify(error));
+			// 	}
+			// );
 		}
 	}
 
-
+	public fileChanged(file: any) {
+		this.file = file;
+		this.uploadPicture();
+	}
 
 }

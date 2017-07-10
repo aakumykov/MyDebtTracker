@@ -12,9 +12,16 @@
 
 <ion-content padding>
   <img [src]="bill.picture || placeholderPicture" (click)="uploadPicture(bill?.$key)" />
-  <div *ngIf="!bill.picture">
+  <!-- <div *ngIf="!bill.picture">
     Прикоснитесь, чтобы добавить картинку
-  </div>
+  </div> -->
+
+  <ion-item>
+    <p>billId: {{ billId }}</p>
+    <p>Результат загрузки: {{ uploadResult }}</p>
+    <input type='file' #theFile (change)='fileChanged(theFile.files[0])'/>
+    <button ion-button (click)='uploadPicture()'>Загрузить</button>
+  </ion-item>
 
   <ion-card>
     <ion-card-header>

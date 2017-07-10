@@ -71,7 +71,7 @@ export class BillProvider {
 		console.info('BillProvider.uploadBillPhoto(), storageRef: '+storageRef);
 		
 		return storageRef.child(billId).child('billPicture')
-			.putString(imageURL, 'base64', {contentType: 'image/png'}).then(
+			.put(imageURL).then(
 				pictureSnapshot => {
 					console.info('BillProvider.uploadBillPhoto(), pictureSnapshot:');
 					console.info(pictureSnapshot);
