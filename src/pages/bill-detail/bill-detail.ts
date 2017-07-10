@@ -100,7 +100,7 @@ export class BillDetailPage {
 			this.camera.getPicture({
 				quality : 95,
 				destinationType : this.camera.DestinationType.DATA_URL,
-				sourceType : this.camera.PictureSourceType.CAMERA,
+				sourceType : this.camera.PictureSourceType.PHOTOLIBRARY,
 				allowEdit : true,
 				encodingType: this.camera.EncodingType.PNG,
 				targetWidth: 500,
