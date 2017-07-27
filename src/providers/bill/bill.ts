@@ -67,6 +67,11 @@ export class BillProvider {
 	uploadBillPhoto(billId: string, imageURL: string): any {
 		console.info('BillProvider.uploadBillPhoto()');
 
+		console.info('---------- typeof(imageURL): ----------');
+		console.info(typeof(imageURL));
+		console.info('---------- imageURL: ----------');
+		console.info(imageURL);
+
 		const storageRef = firebase.storage().ref(this.userId);
 		console.info('BillProvider.uploadBillPhoto(), storageRef: '+storageRef);
 		

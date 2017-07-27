@@ -103,6 +103,11 @@ export class BillDetailPage {
 		} else {
 			console.info('BillDetailPage.uploadPicture(), ЗАРЕГИСТРИРОВАН, делаю фото');
 
+			console.info('---------- typeof(this.file): ----------');
+			console.info(typeof(this.file));
+			console.info('---------- this.file: ----------');
+			console.info(this.file);
+
 			this.billProvider.uploadBillPhoto(this.billId, this.file).then( () => {
 				this.uploadResult = 'УСПЕХ';
 				console.info('uploadPicture() SUCCESS');

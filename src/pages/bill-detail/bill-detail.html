@@ -19,6 +19,8 @@
   <ion-item>
     <p>billId: {{ billId }}</p>
     <p>Результат загрузки: {{ uploadResult }}</p>
+    <p>file name: {{ file?.name }}</p>
+    <p>file size: {{ file?.size }}</p>
     <input type='file' #theFile (change)='fileChanged(theFile.files[0])'/>
     <button ion-button (click)='uploadPicture()'>Загрузить</button>
   </ion-item>
@@ -29,6 +31,12 @@
     </ion-card-header>
 
     <ion-list>
+
+      <ion-item>
+        <ion-icon color="secondary" name="information-key" item-left></ion-icon>
+        {{bill?.$key}}
+      </ion-item>
+
       <ion-item>
         <ion-icon color="secondary" name="information-circle" item-left>
         </ion-icon>
